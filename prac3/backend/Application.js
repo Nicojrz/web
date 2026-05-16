@@ -4,6 +4,7 @@ const puerto = 8080;
 
 let lastform = null;
 
+app.use(express.static('static'));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
