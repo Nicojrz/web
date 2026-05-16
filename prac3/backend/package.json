@@ -1,0 +1,18 @@
+{
+  "name": "backendbase2",
+  "version": "1.0.0",
+  "main": "Application.js",
+  "scripts": {
+    "start": "node Application.js || webpack serve --mode development --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^5.2.3"
+  }
+}
