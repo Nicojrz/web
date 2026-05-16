@@ -6,7 +6,7 @@ module.exports = {
     mode: "development",
     entry: "./src/Aplicacion.jsx",
     output: {
-    path:path.resolve(__dirname, '../backendbase4/public'),
+    path:path.resolve(__dirname, '../backend/public'),
     filename: "main.js",
     clean: true
     },
@@ -16,7 +16,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
           template: './plantilla/index.html', // Ruta plantilla HTML
-          path:path.resolve(__dirname, '../backendbase4/public'),
+          path:path.resolve(__dirname, '../backend/public'),
           filename: 'index.html', // Nombre del archivo de salida
         })
       ],
@@ -55,7 +55,7 @@ module.exports = {
     hot: true, // Habilitar Hot Module Replacement (HMR)
     historyApiFallback: true, // Aplicaciones SPA
     static: {
-      directory: path.resolve(__dirname, '../backendbase4/public'), // Servir archivos desde esta carpeta
+      directory: path.resolve(__dirname, '../backend/public'), // Servir archivos desde esta carpeta
     },
   }            
   }
