@@ -1,61 +1,53 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { resolve } = require('dns');
 
 module.exports = {
-    mode: "development",
-    entry: "./src/Aplicacion.jsx",
-    output: {
-    path:path.resolve(__dirname, '../backend/public'),
-    filename: "main.js",
+  mode: "development",
+  entry: {
+    app: "./src/Aplicacion.jsx",
+    datos: "./src/Datos.jsx"
+  },
+  output: {
+    path: path.resolve(__dirname, '../backend/public'),
+    filename: "[name].js",
     clean: true
-    },
-    resolve: {
-        extensions: ['.js', '.jsx']
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-          template: './plantilla/index.html', // Ruta plantilla HTML
-          path:path.resolve(__dirname, '../backend/public'),
-          filename: 'index.html', // Nombre del archivo de salida
-        })
-      ],
-    module: {
-        rules: [
-          {
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: {
-              loader: "babel-loader"
-            }
-            
-          },
-          {
-        test: /\.css$/,         // Procesa archivos .css
-        use: [
-          'style-loader', 
-          {
-            loader: 'css-loader',
-            options: {
-              modules: false,    // Esto permite usar className={styles.miCanvas}
-            }
-          }
-        ]
-      },
-        ]
-      },
-      
-
-    devServer: {
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './plantilla/index.html',
+      path: path.resolve(__dirname, '../backend/public'),
+      filename: 'index.html',
+      chunks: ['app']
+    }),
+    new HtmlWebpackPlugin({
+      template: './plantilla/datos.html',
+      path: path.resolve(__dirname, '../backend/public'),
+      filename: 'datos.html',
+      chunks: ['datos']
+    })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      }
+      ,{
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"]
+      }
+    ]
+  },
+  devServer: {
     static: {
-      directory: path.join(__dirname, 'dist'), 
+      directory: path.resolve(__dirname, '../backend/static'),
     },
     port: 8080, // Puerto del servidor
     open: true, // Abrir navegador automáticamente
     hot: true, // Habilitar Hot Module Replacement (HMR)
     historyApiFallback: true, // Aplicaciones SPA
-    static: {
-      directory: path.resolve(__dirname, '../backend/public'), // Servir archivos desde esta carpeta
-    },
-  }            
   }
+}

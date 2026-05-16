@@ -1,27 +1,30 @@
 const express = require("express");
 const app = express();
 const puerto = 8080;
-const url = require("url");
+
+let lastform = null;
 
 app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
-    next();
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
 });
 
-app.get("/Action",(request,response)=>
-{
-  const q = url.parse(request.url, true).query;
-
-  const id=q.id;   
-  const password=q.password;     
-  response.end("HOLA: "+id+" TU PASSWORD ES:"+password);    
+app.post("/api/registro", (request, response) => {
+  lastform = request.body;
+  console.log(lastform);
+  response.redirect("/datos.html");
 });
 
-app.listen(puerto,()=>
-{
-console.log(puerto);
+app.get("/api/datos", (request, response) => {
+  response.json(lastform);
+});
+
+app.listen(puerto, () => {
+  console.log(puerto);
 });
